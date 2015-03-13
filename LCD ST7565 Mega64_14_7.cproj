@@ -1,0 +1,262 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>6.2</ProjectVersion>
+    <ToolchainName>com.Atmel.AVRGCC8.C</ToolchainName>
+    <ProjectGuid>{04038cbd-c950-4a0f-8055-a0db10a105fd}</ProjectGuid>
+    <avrdevice>ATmega64</avrdevice>
+    <avrdeviceseries>none</avrdeviceseries>
+    <OutputType>Executable</OutputType>
+    <Language>C</Language>
+    <OutputFileName>$(MSBuildProjectName)</OutputFileName>
+    <OutputFileExtension>.elf</OutputFileExtension>
+    <OutputDirectory>$(MSBuildProjectDirectory)\$(Configuration)</OutputDirectory>
+    <AssemblyName>LCD ST7565 Mega64_5</AssemblyName>
+    <Name>LCD ST7565 Mega64_5</Name>
+    <RootNamespace>LCD ST7565 Mega64_5</RootNamespace>
+    <ToolchainFlavour>Native</ToolchainFlavour>
+    <KeepTimersRunning>true</KeepTimersRunning>
+    <OverrideVtor>false</OverrideVtor>
+    <CacheFlash>true</CacheFlash>
+    <ProgFlashFromRam>true</ProgFlashFromRam>
+    <RamSnippetAddress>0x20000000</RamSnippetAddress>
+    <UncachedRange />
+    <preserveEEPROM>true</preserveEEPROM>
+    <OverrideVtorValue>exception_table</OverrideVtorValue>
+    <BootSegment>2</BootSegment>
+    <eraseonlaunchrule>0</eraseonlaunchrule>
+    <AsfFrameworkConfig>
+      <framework-data xmlns="">
+        <options />
+        <configurations />
+        <files />
+        <documentation help="" />
+        <offline-documentation help="" />
+        <dependencies>
+          <content-extension eid="atmel.asf" uuidref="Atmel.ASF" version="3.19.0" />
+        </dependencies>
+      </framework-data>
+    </AsfFrameworkConfig>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>NDEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <ToolchainSettings>
+      <AvrGcc>
+        <avrgcc.common.ExternalRamMemOvflw>True</avrgcc.common.ExternalRamMemOvflw>
+        <avrgcc.common.outputfiles.hex>True</avrgcc.common.outputfiles.hex>
+        <avrgcc.common.outputfiles.lss>True</avrgcc.common.outputfiles.lss>
+        <avrgcc.common.outputfiles.eep>True</avrgcc.common.outputfiles.eep>
+        <avrgcc.common.outputfiles.srec>True</avrgcc.common.outputfiles.srec>
+        <avrgcc.common.outputfiles.usersignatures>False</avrgcc.common.outputfiles.usersignatures>
+        <avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>True</avrgcc.compiler.general.ChangeDefaultCharTypeUnsigned>
+        <avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>True</avrgcc.compiler.general.ChangeDefaultBitFieldUnsigned>
+        <avrgcc.compiler.symbols.DefSymbols>
+          <ListValues>
+            <Value>DEBUG</Value>
+          </ListValues>
+        </avrgcc.compiler.symbols.DefSymbols>
+        <avrgcc.compiler.optimization.level>Optimize for size (-Os)</avrgcc.compiler.optimization.level>
+        <avrgcc.compiler.optimization.PackStructureMembers>True</avrgcc.compiler.optimization.PackStructureMembers>
+        <avrgcc.compiler.optimization.AllocateBytesNeededForEnum>True</avrgcc.compiler.optimization.AllocateBytesNeededForEnum>
+        <avrgcc.compiler.optimization.DebugLevel>Default (-g2)</avrgcc.compiler.optimization.DebugLevel>
+        <avrgcc.compiler.warnings.AllWarnings>True</avrgcc.compiler.warnings.AllWarnings>
+        <avrgcc.linker.libraries.Libraries>
+          <ListValues>
+            <Value>libm</Value>
+          </ListValues>
+        </avrgcc.linker.libraries.Libraries>
+        <avrgcc.linker.miscellaneous.LinkerFlags>-Wl,--section-start,.data=0x801100,--defsym=__heap_end=0x807fff</avrgcc.linker.miscellaneous.LinkerFlags>
+        <avrgcc.assembler.debugging.DebugLevel>Default (-Wa,-g)</avrgcc.assembler.debugging.DebugLevel>
+      </AvrGcc>
+    </ToolchainSettings>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="drivers\spi.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\spi.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\twim.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\twim.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\uart.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="drivers\uart.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\diskio.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\diskio.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\ff.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\ff.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\ffconf.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\integer.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\rtc.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="file.system\rtc.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LCD ST7565 Mega64_14_7.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\lcd.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\lcd.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\logo\addidas_logo.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\st7565-driver.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\st7565-driver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\st7565-graphics.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\st7565-graphics.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\st7565.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\font-digits-32.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\font-ks0066-ru-08.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\font-ks0066-ru-24.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\fonts.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\icons-24.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\icons-32.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="lcd\wiselord\icons.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\AT45DB321C.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\Attributes.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\Common.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\CompilerSpecific.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\Dataflash.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\DataflashManager.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\DataflashManager.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\Dataflash_STK_525.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\Endianness.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="LUFA\TempDataLogger.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TM\functions_TM.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TM\functions_TM.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\buttons.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\buttons.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\events.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\mmenu.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\mmenu.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\sedit.c">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="TUI\sedit.h">
+      <SubType>compile</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="file.system" />
+    <Folder Include="drivers" />
+    <Folder Include="ethernet" />
+    <Folder Include="config" />
+    <Folder Include="lcd" />
+    <Folder Include="lcd\logo" />
+    <Folder Include="lcd\wiselord" />
+    <Folder Include="LUFA" />
+    <Folder Include="TM" />
+    <Folder Include="TUI" />
+  </ItemGroup>
+  <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
+</Project>
