@@ -2,44 +2,42 @@
  * LCD_ST7565_Mega64_5.c
  *
  * Created: 03.02.2015 14:55:33
- *  Author: Sergey
+ * Author: Sergey
  * Board - ATMEGABOARD Atmega64 with EXMEM, AT45DB321D
- * Немного модернизировал библиотеку uart.c, изменения коснулись процедуры uart1_putc, 
- * вернул ее к исходному виду, заодно расскоментировал uart1_puts и uart1_puts_p. Вместо uart1_putc используем новую функцию usart1_put_char.
+ * Modernized library uart.c, changed function uart1_putc, 
+ * returned it to its original form, at the same time and uncomment uart1_puts uart1_puts_p. Instead, use a new function uart1_putc usart1_put_char.
  * Работоспособность сохранена.
- * Попытка прикрутить DataFlash AT45DB321D - успешно
- * Попытка прикрутить FatFS от Chan - успешно (FatFs - FAT file system module  R0.05 (C)ChaN, 2007)
- * Попытка разложить файлы по каталогам проекта - успешно
- * Добавлены часы DS1307
- * Добавлен темпеатурный датчик LM75A
- * Попытка добавить чтение EEPROM AT24C256 - успешно
- * В библиотеке twim есть ошибка - не читается первый байт сообщения, вместо него приходит ранее записанный адрес ведомого устройства
- * для часов DS1307 это приемлемо, для EEPROM AT24C256 нет - ошибки нет, все работает корректно
- * Библиотеки отвечающие за вывод на дисплей ST7565 вынесены в отдельную папку lcd
- * Добавлена настройка времени
- * Добавлена функция первоначальной инициализаци времени DS1307
+ * Implementation DataFlash AT45DB321D  library - done
+ * Implementation FatFS от Chan - done (FatFs - FAT file system module  R0.05 (C)ChaN, 2007)
+ * Trying to put the files in the different directories of the project - successfully
+ * Implemetation library I2C clock DS1307 - done
+ * Added function to read I2C temperature sensor LM75A - done
+ * Added function to read I2C EEPROM AT24C256 - done
+ * Display  ST7565 library handed in directory "lcd"
+ * Added setting time
+ * Added the function of the original initialization time DS1307
  * Release Flash=19 300b; RAM=2000b
- * 16.02.2015 Добавлена библиотека TUI_lib_0_03 Small-LCD Text User Interface author: ARV
- * Немного подчищены библиотеки дисплея ST7565, вывод текста реализован на основе библиотек Wiselord с загружаемыми и масштабируемыми шрифтами.
- * В библиотеки TWI добавлены функции для чтения и записи массивов внешней EEPROM
+ * 16.02.2015 Added library TUI_lib_0_03 Small-LCD Text User Interface author: ARV
+ * Slightly brushed display library ST7565, Text output is implemented on the basis of libraries Wiselord with downloadable and scalable fonts.
+ * In the library TWI added functions to read and write arrays external EEPROM.
  * 16.02.2015 
- * Добавлен вывод графической заставки при старте
- * Подключены библиотеки Touch Memory. Автор - С.Суров, Радио 2009 №1,2 Master_controller - не проверены
- * Подключен Buzzer без генератора к PG3
- * Отрезан PB4 от RDY/BUSY AT45DB321D. Сигнал RDY/BUSY читается из регистра.
- * Чтение/запись массивов из EEPROM AT24C256 реализована через указатель, впринципе работает нормально.
- * Нужно сделать точно так же работу через структуру.
- * За основу взята версия LCD ST7565 Mega64_38 Изменен драйвер датафлеш от LUFA вместе с библиотекой FatFS от Chan R0.09а
- * Такой себе даунгрейд. У LUFA зато есть буфер записи чтения
- * FatFS обновлена до версии до R0.11 - успешно 
- * Добавлена фунция даталоггера: в файл типа: 19022015.CSV, раз в 5 минут пишется строка типа 19.2.2015 16:38:35, 23.7 Degrees.
- * Функция заимствована у LUFA
- * Попытка разместить большой массив во внешней EEPROM.
- * 09.03.2015 Прикручена функция вывода бегущей строки. Работает очень криво 
+ * Added displaying graphical splash at the start
+ * Implemetation Touch Memory library. Author - S.Surov, Radio magazine 2009 №1,2 Master_controller - successfully implemented, but not tested
+ * Added the function Buzzer without generator on port PG3
+ * Unwired PB4  port from RDY/BUSY AT45DB321D. RDY/BUSY read from register AT45DB321D.
+ * Read / write arrays of EEPROM AT24C256 is implemented through a pointer - done.
+ * ...need to do exactly the same job through the structure.
+ * It is based on version LCD ST7565 Mega64_38. Modified driver dataflesh from LUFA library with FatFS by Chan R0.09a
+ * A sort of a downgrade. But LUFA driver have a read/write buffer 
+ * FatFS library updated to version R0.11 - done 
+ * Added the function of data logger: File type: 19022015.CSV, every 5 minutes written string type: 19.2.2015 16:38:35, 23.7 Degrees.
+ * ФFunction prototype by LUFA
+ * Trying to place a large array in external EEPROM.
+ * 09.03.2015 Screwed up function scrolling text on display. Works very crooked 
   
   ST7565 pinout:
     CS   PB0
-    A0   PE3- переброшен на PB4
+    A0   PE3- wired on PB4
     A0   PB4	
     RES  PE2
     SID  PB2
@@ -54,9 +52,9 @@
 
 
 
-//Atmega64 - используемый микроконтроллер
+//Atmega64 - microcontroller
 
-/*если не определена тактовая частота, определяем ее здесь*/
+/*The frequency of the clock generator */
 #ifndef F_CPU
 #define F_CPU  18432000UL
 #endif
@@ -95,7 +93,7 @@
 
 #define STR_BUFSIZE		   16
 
-#define LCD_LINES           8     /**< number of visible lines of the display */   //Для TUI???
+#define LCD_LINES           8     /**< number of visible lines of the display */   //For TUI
 #define LCD_DISP_LENGTH    20     /**< visibles characters per line of the*/
 
 
